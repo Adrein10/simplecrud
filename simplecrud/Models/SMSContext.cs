@@ -22,7 +22,6 @@ namespace simplecrud.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
             }
         }
 
@@ -30,18 +29,14 @@ namespace simplecrud.Models
         {
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Student");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("email");
-
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("id");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
