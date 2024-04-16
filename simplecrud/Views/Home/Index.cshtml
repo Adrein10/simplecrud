@@ -1,9 +1,9 @@
-﻿@model simplecrud.Models.Students
+﻿@model simplecrud.Models.Student
 <div class="container-fluid bg-dark text-white">
     <div class="container">
         <h1>Admission Form</h1>
         <br />
-        <form class="row g-3 needs-validation" novalidate action="post">
+        <form class="row g-3 needs-validation" novalidate method="post">
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">Full Name</label>
                 <input type="text" asp-for="Name" class="form-control" id="validationCustom01" required>
@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-4">
                 <label for="validationCustom03" class="form-label">Password</label>
-                <input type="text" asp-for="Password" class="form-control" id="validationCustom03" required>
+                <input type="password" asp-for="Password" class="form-control" id="validationCustom03" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>

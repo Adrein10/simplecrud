@@ -16,11 +16,16 @@ namespace simplecrud.Controllers
             _logger = logger;
             this.context = context;
         }
-       
-
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Index(Student std)
+        {
+            context.Students.Add(std);
+            context.SaveChanges();
+            return RedirectToAction("Students");
         }
 
         public IActionResult Students()
