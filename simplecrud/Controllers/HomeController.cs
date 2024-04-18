@@ -30,7 +30,8 @@ namespace simplecrud.Controllers
 
         public IActionResult Students()
         {
-            return View();
+            var show = context.Students.ToList();
+            return View(show);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
