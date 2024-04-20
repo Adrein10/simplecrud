@@ -23,9 +23,13 @@ namespace simplecrud.Controllers
         [HttpPost]
         public IActionResult Index(Student std)
         {
-            context.Students.Add(std);
-            context.SaveChanges();
-            return RedirectToAction("Students");
+            if (ModelState.IsValid)
+            {
+                context.Students.Add(std);
+                context.SaveChanges();
+                return RedirectToAction("Students");
+            }
+            return View("Index");
         }
 
         public IActionResult Students()
@@ -33,7 +37,25 @@ namespace simplecrud.Controllers
             var show = context.Students.ToList();
             return View(show);
         }
-
+        public IActionResult Edit(int id)
+        {
+            var show = context.Students.Find(id);
+            return View(show);
+        }
+        [HttpPost]
+        public IActionResult Edit(Student student,int id)
+        {
+            context.Students.Update(student);
+            context.SaveChanges();
+            return RedirectToAction("Students");
+        }
+        [HttpPost]
+        public IActionResult Delete(Student student,int id)
+        {
+            context.Students.Remove(student);
+            context.SaveChanges();
+            return RedirectToAction("Students");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
