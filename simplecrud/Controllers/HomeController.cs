@@ -45,15 +45,25 @@ namespace simplecrud.Controllers
         [HttpPost]
         public IActionResult Edit(Student student,int id)
         {
-            context.Students.Update(student);
-            context.SaveChanges();
-            return RedirectToAction("Students");
+            if(ModelState.IsValid)
+            {
+                context.Students.Update(student);
+                context.SaveChanges();
+                return RedirectToAction("Students");
+            }
+            return View();
         }
-        [HttpPost]
-        public IActionResult Delete(Student student,int id)
+        
+
+        public IActionResult Delete(int id)
         {
-            context.Students.Remove(student);
-            context.SaveChanges();
+            if(ModelState.IsValid)
+            {
+                var show = context.Students.FirstOrDefault(item => item.Id == id);
+                context.Students.Remove(show);
+                context.SaveChanges();
+                return RedirectToAction("Students");
+            }
             return RedirectToAction("Students");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
