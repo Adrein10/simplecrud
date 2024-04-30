@@ -16,6 +16,46 @@ namespace simplecrud.Controllers
             _logger = logger;
             this.context = context;
         }
+        public IActionResult Signup()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Signup(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Users.Add(user);
+                context.SaveChanges();
+                return RedirectToAction("Login");
+        }
+            return View();
+        }
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(User user)
+        {
+            var login = context.Users.FirstOrDefault(options => options.Email == user.Email && options.Password == user.Password);
+            if(login != null)
+            {
+                if(login.Role == "Admin")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else if(login.Role == "Customer")
+                {
+                    return RedirectToAction("Index", "Customer");
+                }
+            }else{
+                ViewBag.loginfailed = "Login failed";
+                return View();
+            }
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
